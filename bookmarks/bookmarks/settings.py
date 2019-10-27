@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -33,6 +35,7 @@ ALLOWED_HOSTS = ['mysite.com', 'abbe1c4b.ngrok.io', 'localhost', '127.0.0.1']
 INSTALLED_APPS = [
     'account',
     'images',
+    'actions',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -145,3 +148,11 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'bf219ab9608f3604556449763d9c70a9' # Facebook App 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 THUMBNAIL_DEBUG = True,
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
